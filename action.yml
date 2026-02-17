@@ -26,12 +26,12 @@ runs:
           clang-format-${{ inputs.clang-format-version }}
     - name: Check clang-format version
       run: clang-format-${{ inputs.clang-format-version }} --version
-      shell: bash -el {0}
+      shell: bash -l {0}
     - name: Find paths to format
       run: |
         FILES=$(find ${{ inputs.check-path }} -regextype posix-egrep -regex "^.*\.(c|h|t)pp$" | xargs echo)
         echo "FILES=$FILES" >> $GITHUB_ENV
-      shell: bash -el {0}
+      shell: bash -l {0}
     - name: Check formatting
       run: |
         exit_code=0
@@ -47,4 +47,4 @@ runs:
         if [[ $exit_code -ne 0 ]]; then
           exit $exit_code
         fi
-      shell: bash -el {0}
+      shell: bash -l {0}
