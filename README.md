@@ -7,9 +7,8 @@ exists as a temporary replacement whilst that action is failing.
 ## Inputs
 
 - clang-format-version [optional]: The major version of clang-format that you want to run on your codebase.
-  - Default: 21
+  - Default: '21'
 - check-path [optional]: The path to the directory in the repo that should be checked for C/C++/Protobuf formatting.
-  - Default: .
+  - Default: '.'
 - exclude-regex [optional]: A regex to exclude files or directories that should not be checked.
-  Default: ^$
-  Pattern matching is done with a POSIX grep -E extended regex, not a glob expression. You can exclude multiple patterns like this: (hello|world). Build and verify your regex at regex101.com (example).
+  - Default: '^$'
