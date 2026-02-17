@@ -30,7 +30,6 @@ runs:
     - name: Find paths to format
       run: |
         FILES=$(find ${{ inputs.check-path }} -regextype posix-egrep -regex "^.*\.(c|h|t)pp$" | xargs echo)
-        echo $FILES
         echo "FILES=$FILES" >> $GITHUB_ENV
       shell: bash -el {0}
     - name: Check formatting
@@ -45,5 +44,6 @@ runs:
             fi
           fi
         done
+        echo $exit_code
         exit $exit_code
       shell: bash -el {0}
