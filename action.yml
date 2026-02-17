@@ -24,6 +24,7 @@ runs:
         environment-name: clang-format-env
         create-args: >-
           clang-format-${{ inputs.clang-format-version }}
+        cache-environment: true
     - name: Check clang-format version
       run: clang-format-${{ inputs.clang-format-version }} --version
       shell: bash -l {0}
