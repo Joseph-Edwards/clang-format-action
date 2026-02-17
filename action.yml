@@ -1,0 +1,42 @@
+name: "clang-format Check"
+description: "Check to see if the project is formatted in accordance with clang-format"
+
+inputs:
+  clang-format-version:
+    description: "The version of clang-format to use. Default is 21."
+    required: false
+    default: "21"
+  check-path:
+    description: "The path to the directory to check for the formatting. Default is the full repository."
+    required: false
+    default: "."
+  exclude-regex:
+    description: "A regex to exclude files or directories that should not be checked. Default is empty."
+    required: false
+    default: "^$"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Create micromamba environment with clang-format
+      uses: mamba-org/setup-micromamba@v2
+      with:
+        environment-name: clang-format-env
+        create-args: >-
+          clang-format-${{ inputs.clang-format-version }}
+    - name: Find paths to format
+      run: echo "FILES=$(find ${{ inputs.check-path }} -name .git -prune -o -regextype posix-egrep -regex "^.*\.(c|h|t)pp$" -print)" >> $GITHUB_ENV
+      shell: bash
+    - name: Check formatting
+      run: |
+        exit_code=0
+        for file in $FILES; do
+          if ! [[ ${file} =~ ${{ inputs.exclude-regex }} ]]; then
+            clang-format-${{ inputs.clang-format-version }} --dry-run -Werror --style=file $file
+            if [[ $? -ne 0 ]]; then
+              exit_code=1
+            fi
+          fi
+        done
+        exit $exit_code
+      shell: bash
