@@ -32,6 +32,7 @@ runs:
         exit_code=0
         for file in $FILES; do
           if ! [[ ${file} =~ ${{ inputs.exclude-regex }} ]]; then
+            echo "Checking the formatting of $file"
             clang-format-${{ inputs.clang-format-version }} --dry-run --Werror --style=file $file
             if [[ $? -ne 0 ]]; then
               exit_code=1
