@@ -27,12 +27,12 @@ runs:
         cache-environment: true
     - name: Check clang-format version
       run: clang-format-${{ inputs.clang-format-version }} --version
-      shell: bash -l {0}
+      shell: bash -el {0}
     - name: Find paths to format
       run: |
         FILES=$(find ${{ inputs.check-path }} -regextype posix-egrep -regex "^.*\.(c|h|t)pp$" | xargs echo)
         echo "FILES=$FILES" >> $GITHUB_ENV
-      shell: bash -l {0}
+      shell: bash -el {0}
     - name: Check formatting
       run: |
         exit_code=0
