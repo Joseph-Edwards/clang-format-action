@@ -24,6 +24,9 @@ runs:
         environment-name: clang-format-env
         create-args: >-
           clang-format-${{ inputs.clang-format-version }}
+    - name: Check clang-format version
+      run: clang-format-${{ inputs.clang-format-version }} --version
+      shell: bash
     - name: Find paths to format
       run: |
         FILES=$(find ${{ inputs.check-path }} -regextype posix-egrep -regex "^.*\.(c|h|t)pp$" | xargs echo)
