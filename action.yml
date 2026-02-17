@@ -26,7 +26,7 @@ runs:
           clang-format-${{ inputs.clang-format-version }}
     - name: Find paths to format
       run: |
-        FILES=$(find ${{ inputs.check-path }} -name .git -prune -o -regextype posix-egrep -regex "^.*\.(c|h|t)pp$" -print)
+        FILES=$(find ${{ inputs.check-path }} -regextype posix-egrep -regex "^.*\.(c|h|t)pp$" | xargs echo)
         echo $FILES
         echo "FILES=$FILES" >> $GITHUB_ENV
       shell: bash
