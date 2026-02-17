@@ -25,7 +25,10 @@ runs:
         create-args: >-
           clang-format-${{ inputs.clang-format-version }}
     - name: Find paths to format
-      run: echo "FILES=$(find ${{ inputs.check-path }} -name .git -prune -o -regextype posix-egrep -regex "^.*\.(c|h|t)pp$" -print)" >> $GITHUB_ENV
+      run: |
+        FILES=$(find ${{ inputs.check-path }} -name .git -prune -o -regextype posix-egrep -regex "^.*\.(c|h|t)pp$" -print)
+        echo $FILES
+        echo "FILES=$FILES" >> $GITHUB_ENV
       shell: bash
     - name: Check formatting
       run: |
