@@ -1,3 +1,7 @@
+# Disclaimer
+
+_This action was only created when there was a bug in https://github.com/jidicula/clang-format-action, which has since been resolved. That project is much more mature than this one, and I recommend you use that action instead._
+
 # A clang-format action
 
 This action checks the formatting of a project with respect to `clang-format`.
